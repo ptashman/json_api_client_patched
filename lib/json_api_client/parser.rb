@@ -55,7 +55,10 @@ module JsonApiClient
       end
 
       def handle_errors(result_set, data)
-        result_set.errors = result_set.meta.fetch("errors", [])
+        result_set.errors = []
+        data.each do |k,arr|
+          arr.each { |v| result_set.errors << "#{k.capitalize} #{v}" }
+        end
       end
     end
 
